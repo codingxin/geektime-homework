@@ -11,10 +11,6 @@ import java.util.concurrent.Executors;
 public class HttpServer03 {
     public static void main(String[] args) throws IOException {
 
-        for (int i = 0; i < 10; i++) {
-            System.out.println(Runtime.getRuntime().availableProcessors());
-        }
-
         ExecutorService executorService = Executors.newFixedThreadPool(
                 Runtime.getRuntime().availableProcessors() + 2);
         final ServerSocket serverSocket = new ServerSocket(8803);

@@ -1,8 +1,10 @@
 package com.codingzx.geektimehomework.nio.nio02.src.main.java.io.github.kimmking.gateway.inbound;
 
-import io.github.kimmking.gateway.filter.HeaderHttpRequestFilter;
-import io.github.kimmking.gateway.filter.HttpRequestFilter;
-import io.github.kimmking.gateway.outbound.httpclient4.HttpOutboundHandler;
+
+import com.codingzx.geektimehomework.nio.nio02.src.main.java.io.github.kimmking.gateway.filter.HeaderHttpRequestFilter;
+import com.codingzx.geektimehomework.nio.nio02.src.main.java.io.github.kimmking.gateway.filter.HttpRequestFilter;
+import com.codingzx.geektimehomework.nio.nio02.src.main.java.io.github.kimmking.gateway.outbound.httpclient4.HttpOutboundHandler;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.codec.http.FullHttpRequest;
@@ -12,6 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
+//@ChannelHandler.Sharable
 public class HttpInboundHandler extends ChannelInboundHandlerAdapter {
 
     private static Logger logger = LoggerFactory.getLogger(HttpInboundHandler.class);
@@ -32,13 +35,8 @@ public class HttpInboundHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         try {
-            //logger.info("channelRead流量接口请求开始，时间为{}", startTime);
+            System.out.println("当Channel读取数据时调用");
             FullHttpRequest fullRequest = (FullHttpRequest) msg;
-//            String uri = fullRequest.uri();
-//            //logger.info("接收到的请求url为{}", uri);
-//            if (uri.contains("/test")) {
-//                handlerTest(fullRequest, ctx);
-//            }
     
             handler.handle(fullRequest, ctx, filter);
     

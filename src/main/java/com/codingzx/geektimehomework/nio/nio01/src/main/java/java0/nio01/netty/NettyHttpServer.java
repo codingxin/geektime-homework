@@ -9,7 +9,6 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
-import java0.nio01.netty.HttpInitializer;
 
 public class NettyHttpServer {
     public static void main(String[] args) throws InterruptedException {

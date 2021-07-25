@@ -5,6 +5,7 @@ import io.netty.handler.codec.http.FullHttpResponse;
 public class HeaderHttpResponseFilter implements HttpResponseFilter {
     @Override
     public void filter(FullHttpResponse response) {
-        response.headers().set("kk", "java-1-nio");
+        System.out.println("自定义回复过滤器");
+        response.headers().set("modulename", "java-1-nio");
     }
 }

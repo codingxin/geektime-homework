@@ -7,6 +7,7 @@ public class HeaderHttpRequestFilter implements HttpRequestFilter {
 
     @Override
     public void filter(FullHttpRequest fullRequest, ChannelHandlerContext ctx) {
-        fullRequest.headers().set("mao", "soul");
+        System.out.println("自定义请求过滤器");
+        fullRequest.headers().set("author", "codingzx");
     }
 }
