@@ -3,7 +3,8 @@ package com.codingzx.geektimehomework.nio.nio02.src.main.java.io.github.kimmking
 
 import com.codingzx.geektimehomework.nio.nio02.src.main.java.io.github.kimmking.gateway.filter.HeaderHttpRequestFilter;
 import com.codingzx.geektimehomework.nio.nio02.src.main.java.io.github.kimmking.gateway.filter.HttpRequestFilter;
-import com.codingzx.geektimehomework.nio.nio02.src.main.java.io.github.kimmking.gateway.outbound.httpclient4.HttpOutboundHandler;
+import com.codingzx.geektimehomework.nio.nio02.src.main.java.io.github.kimmking.gateway.filter.MyHttpRequestFilter;
+import com.codingzx.geektimehomework.nio.nio02.src.main.java.io.github.kimmking.gateway.outbound.okhttp.OkhttpOutboundHandler;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -19,14 +20,22 @@ public class HttpInboundHandler extends ChannelInboundHandlerAdapter {
 
     private static Logger logger = LoggerFactory.getLogger(HttpInboundHandler.class);
     private final List<String> proxyServer;
-    private HttpOutboundHandler handler;
-    private HttpRequestFilter filter = new HeaderHttpRequestFilter();
-    
+//    private HttpOutboundHandler handler;
+//    private HttpRequestFilter filter = new HeaderHttpRequestFilter();
+    // 改写 okhttp  指定过滤器
+    private HttpRequestFilter filter = new MyHttpRequestFilter();
+
+    // 改写 okhttp
+    private OkhttpOutboundHandler okHttpOutboundHandler;
+
+
     public HttpInboundHandler(List<String> proxyServer) {
         this.proxyServer = proxyServer;
-        this.handler = new HttpOutboundHandler(this.proxyServer);
+//        this.handler = new HttpOutboundHandler(this.proxyServer);
+        // 改写 okhttp  初始化 处理handle
+        this.okHttpOutboundHandler = new OkhttpOutboundHandler(this.proxyServer);
     }
-    
+
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) {
         ctx.flush();
@@ -37,10 +46,11 @@ public class HttpInboundHandler extends ChannelInboundHandlerAdapter {
         try {
             System.out.println("当Channel读取数据时调用");
             FullHttpRequest fullRequest = (FullHttpRequest) msg;
-    
-            handler.handle(fullRequest, ctx, filter);
-    
-        } catch(Exception e) {
+
+//            handler.handle(fullRequest, ctx, filter);
+            // 改写 okhttp  调用 处理handle
+            okHttpOutboundHandler.handle(fullRequest, ctx, filter);
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             ReferenceCountUtil.release(msg);
