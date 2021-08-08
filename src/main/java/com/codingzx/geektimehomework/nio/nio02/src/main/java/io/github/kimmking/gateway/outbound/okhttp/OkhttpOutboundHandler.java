@@ -83,6 +83,7 @@ public class OkhttpOutboundHandler {
                             if (!HttpUtil.isKeepAlive(fullRequest)) {
                                 ctx.write(fullHttpResponse).addListener(ChannelFutureListener.CLOSE);
                             } else {
+                                // 将接收到消息写给发送者
                                 ctx.write(fullHttpResponse);
                             }
                         }

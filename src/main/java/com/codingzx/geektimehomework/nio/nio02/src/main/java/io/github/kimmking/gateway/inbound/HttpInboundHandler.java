@@ -20,7 +20,7 @@ public class HttpInboundHandler extends ChannelInboundHandlerAdapter {
 
     private static Logger logger = LoggerFactory.getLogger(HttpInboundHandler.class);
     private final List<String> proxyServer;
-//    private HttpOutboundHandler handler;
+    //    private HttpOutboundHandler handler;
 //    private HttpRequestFilter filter = new HeaderHttpRequestFilter();
     // 改写 okhttp  指定过滤器
     private HttpRequestFilter filter = new MyHttpRequestFilter();
@@ -37,7 +37,15 @@ public class HttpInboundHandler extends ChannelInboundHandlerAdapter {
     }
 
     @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+//        ctx.fireChannelActive();
+        System.out.println("Client  " + ctx.channel().remoteAddress() + "   connected");
+    }
+
+
+    @Override
     public void channelReadComplete(ChannelHandlerContext ctx) {
+        System.out.println("当Channel上的一个读操作完成时调用");
         ctx.flush();
     }
 
@@ -85,5 +93,11 @@ public class HttpInboundHandler extends ChannelInboundHandlerAdapter {
 //        cause.printStackTrace();
 //        ctx.close();
 //    }
+
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        System.out.println("抛出异常" + ctx + "    ,  " + cause.getMessage());
+    }
 
 }
