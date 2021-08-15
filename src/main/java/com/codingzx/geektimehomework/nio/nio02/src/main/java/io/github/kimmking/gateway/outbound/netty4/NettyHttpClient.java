@@ -1,4 +1,4 @@
-//package com.codingzx.geektimehomework.nio.nio02.src.main.java.io.github.kimmking.gateway.outbound.netty4;
+//package com.codingzx.geektimehomework.nio.nio02.src.BeanMainTest.java.io.github.kimmking.gateway.outbound.netty4;
 //
 //import io.netty.bootstrap.Bootstrap;
 //import io.netty.channel.ChannelFuture;
@@ -44,7 +44,7 @@
 //
 //    }
 //
-//    public static void main(String[] args) throws Exception {
+//    public static void BeanMainTest(String[] args) throws Exception {
 //        NettyHttpClient client = new NettyHttpClient();
 //        client.connect("127.0.0.1", 8844);
 //    }
