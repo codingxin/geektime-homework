@@ -65,7 +65,7 @@ public class BeanFactory {
             return new People(666, 12, "张大壮");
         }
 
-       // 每次容器加载时候的运行 ，且类必须有@Component注解
+       // 每次容器加载时候的运行 ，且类必须有@Component注解  实现ApplicationContextAware方法会注入上下文
         @Override
         public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
             System.out.println("applicationContext正在初始化,application:"+applicationContext);
